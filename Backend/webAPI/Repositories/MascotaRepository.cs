@@ -9,14 +9,6 @@ namespace webAPI.Repositories
     //Inyectamos el DbContext para que el repositorio tenga acceso
     public class MascotaRepository(AppDbContext context) : IMascotaRepository
     {
-        /*
-        private readonly AppDbContext context;
-
-        public MascotaRepository(AppDbContext context)
-        {
-            this.context = context;
-        }
-        */
         public async Task<IEnumerable<GetMascotaDTO>> LeerTodoAsync()
         {
             var mascotas = await context.Mascotas
@@ -27,9 +19,9 @@ namespace webAPI.Repositories
                     Id = m.Id,
                     Nombre = m.Nombre,
                     Especie = m.Especie,
-                    NombreUsuario = m.Usuario.Nombre, // Navegamos por usuario hasta el nombre
-                    // Estos 4 datos de abajo podriamos no mostrarlos y q se visualicen como "vacios" para no hacer miles de DTOs
-                    Edad = m.Edad,
+                    NombreUsuario = m.Usuario.Nombre,
+                    Meses = m.Meses,
+                    Años = m.Años,
                     Raza = m.Raza,
                     Descripcion = m.Descripcion,
                     Estado = m.Estado
@@ -48,8 +40,9 @@ namespace webAPI.Repositories
                     Id = m.Id,
                     Nombre = m.Nombre,
                     Especie = m.Especie,
-                    NombreUsuario = m.Usuario.Nombre, // Navegamos por usuario hasta el nombre
-                    Edad = m.Edad,
+                    NombreUsuario = m.Usuario.Nombre,
+                    Meses = m.Meses,
+                    Años = m.Años,
                     Raza = m.Raza,
                     Descripcion = m.Descripcion,
                     Estado = m.Estado
@@ -58,7 +51,7 @@ namespace webAPI.Repositories
 
             if (mascota is null)
             {
-                Results.NotFound("¡Registro no encontrado!");
+                throw new Exception("¡Registro no encontrado!");
             }
 
             return mascota;
@@ -66,14 +59,31 @@ namespace webAPI.Repositories
 
         public async Task CrearAsync(MascotaDTO mascotaDTO)
         {
+            var usuario = context.Usuarios
+                .Where(u => !u.Borrado)
+                .Include(u => u.Rol)
+                .FirstOrDefault(u => u.Id == mascotaDTO.IdUsuario);
+
+            if (usuario is null)
+            {
+                throw new Exception("¡Usuario no encontrado!");
+            }
+
+            //if (usuario.IdRol != 2) -> asi se haria si no usariamos el "Include" de arriba
+            if (usuario.Rol.Nombre != "Refugio")
+            {
+                throw new Exception($"¡El usuario no puede realizar esta acción!");
+            }
+
             // Mapeamos el DTO a la entidad Mascota
             var mascota = new Mascota
             {
                 Nombre = mascotaDTO.Nombre,
-                Edad = mascotaDTO.Edad,
+                Meses = mascotaDTO.Meses,
+                Años = mascotaDTO.Años,
                 Especie = mascotaDTO.Especie,
                 Raza = mascotaDTO.Raza,
-                IdUsuario = mascotaDTO.IdUsuario,
+                IdUsuario = usuario.Id,
                 Descripcion = mascotaDTO.Descripcion
             };
 
@@ -87,16 +97,18 @@ namespace webAPI.Repositories
         {
             // Buscar el registro por ID
             var mascota = await context.Mascotas
-                .FirstOrDefaultAsync(m => m.Id == idMascota);
+                .Where(m => !m.Borrado && m.Id == idMascota)
+                .FirstOrDefaultAsync();
 
             if (mascota is null)
             {
-                Results.NotFound("¡Registro no encontrado!");
+                throw new Exception("¡Registro no encontrado!");    //Esto se guarda en el Exception.Message
             }
 
             // Asigna los nuevos valores a los campos que se pueden modificar
             mascota.Nombre = mascotaDTO.Nombre;
-            mascota.Edad = mascotaDTO.Edad;
+            mascota.Meses = mascotaDTO.Meses;
+            mascota.Años = mascotaDTO.Años;
             mascota.Especie = mascotaDTO.Especie;
             mascota.Raza = mascotaDTO.Raza;
             mascota.Descripcion = mascotaDTO.Descripcion;
@@ -116,7 +128,7 @@ namespace webAPI.Repositories
 
             if (mascota is null)
             {
-                Results.NotFound("¡Registro no encontrado!");
+                throw new Exception("¡Registro no encontrado!");
             }
 
             // Eliminamos el registro

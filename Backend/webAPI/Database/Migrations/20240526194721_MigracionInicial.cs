@@ -61,6 +61,7 @@ namespace webAPI.Database.Migrations
                     Nombre = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     Apellido = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
+                    Direccion = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     Descripcion = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     IdRol = table.Column<int>(type: "INTEGER", nullable: false),
                     IdProvincia = table.Column<int>(type: "INTEGER", nullable: false),
@@ -97,9 +98,11 @@ namespace webAPI.Database.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Nombre = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    Edad = table.Column<int>(type: "INTEGER", nullable: false),
+                    Meses = table.Column<int>(type: "INTEGER", nullable: false),
+                    Años = table.Column<int>(type: "INTEGER", nullable: false),
                     Especie = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     Raza = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    UrlImagen = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
                     IdUsuario = table.Column<int>(type: "INTEGER", nullable: false),
                     Descripcion = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     Estado = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
@@ -158,8 +161,29 @@ namespace webAPI.Database.Migrations
                 columns: new[] { "Id", "Nombre" },
                 values: new object[,]
                 {
-                    { 1, "Santa Fe" },
-                    { 2, "Córdoba" }
+                    { 1, "Buenos Aires" },
+                    { 2, "Ciudad Autónoma de Buenos Aires" },
+                    { 3, "Catamarca" },
+                    { 4, "Chaco" },
+                    { 5, "Chubut" },
+                    { 6, "Córdoba" },
+                    { 7, "Corrientes" },
+                    { 8, "Entre Ríos" },
+                    { 9, "Formosa" },
+                    { 10, "Jujuy" },
+                    { 11, "La Pampa" },
+                    { 12, "La Rioja" },
+                    { 13, "Mendoza" },
+                    { 14, "Misiones" },
+                    { 15, "Neuquén" },
+                    { 16, "Río Negro" },
+                    { 17, "Salta" },
+                    { 18, "San Juan" },
+                    { 19, "San Luis" },
+                    { 20, "Santa Cruz" },
+                    { 21, "Santa Fe" },
+                    { 22, "Santiago del Estero" },
+                    { 23, "Tierra del Fuego" }
                 });
 
             migrationBuilder.InsertData(
@@ -174,20 +198,21 @@ namespace webAPI.Database.Migrations
 
             migrationBuilder.InsertData(
                 table: "Usuario",
-                columns: new[] { "Id", "Apellido", "Borrado", "Descripcion", "Email", "IdLocalidad", "IdProvincia", "IdRol", "Nombre" },
+                columns: new[] { "Id", "Apellido", "Borrado", "Descripcion", "Direccion", "Email", "IdLocalidad", "IdProvincia", "IdRol", "Nombre" },
                 values: new object[,]
                 {
-                    { 1, "Sartor", false, "Probando", "lauty123@gmail.com", 1, 1, 1, "Lautaro" },
-                    { 2, "Diaz", false, "Probando", "gonza123@gmail.com", 2, 2, 2, "Gonzalo" }
+                    { 1, "Sartor", false, "Probando", "Av. Siempreviva 123", "lauty123@gmail.com", 1, 21, 1, "Lautaro" },
+                    { 2, "Diaz", false, "Probando", "Bv. Fernetazo 345", "gonza123@gmail.com", 2, 6, 2, "Gonzalo" },
+                    { 3, "JJ", false, "Probando", "Jeje", "cliente123@gmail.com", 1, 14, 3, "Cliente" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Mascota",
-                columns: new[] { "Id", "Borrado", "Descripcion", "Edad", "Especie", "Estado", "IdUsuario", "Nombre", "Raza" },
+                columns: new[] { "Id", "Años", "Borrado", "Descripcion", "Especie", "Estado", "IdUsuario", "Meses", "Nombre", "Raza", "UrlImagen" },
                 values: new object[,]
                 {
-                    { 1, false, "Probandooo", 2, "Perro", "Disponible", 1, "Firulais", "Labrador" },
-                    { 2, false, "Probandooo", 5, "Gato", "Disponible", 2, "Michi", "Siamez" }
+                    { 1, 2, false, "Contactarse al +54123123 para mas info", "Perro", "Disponible", 1, 4, "Firulais", "Labrador", "https://media.istockphoto.com/id/450726311/es/foto/labrador-12-meses-de-edad-sentado.jpg?s=612x612&w=0&k=20&c=-Spzg3jUij6pHhJQ4bjJYv2epvqAErFTxGagqNMtpig=" },
+                    { 2, 10, false, "Contactarse al +54123123 para mas info", "Gato", "Disponible", 2, 8, "Michi", "Siamez", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThhm7y6kjw6Na52r2BUFB8Slpq_Gp9betWSw&s" }
                 });
 
             migrationBuilder.InsertData(
@@ -195,8 +220,8 @@ namespace webAPI.Database.Migrations
                 columns: new[] { "Id", "Estado", "Fecha", "IdMascota", "IdUsuario" },
                 values: new object[,]
                 {
-                    { 1, "Solicitado", new DateTime(2024, 5, 22, 16, 21, 17, 574, DateTimeKind.Local).AddTicks(2695), 1, 1 },
-                    { 2, "Solicitado", new DateTime(2024, 5, 22, 16, 21, 17, 574, DateTimeKind.Local).AddTicks(2708), 2, 2 }
+                    { 1, "", new DateTime(2024, 5, 26, 16, 47, 20, 701, DateTimeKind.Local).AddTicks(1420), 1, 3 },
+                    { 2, "", new DateTime(2024, 5, 26, 16, 47, 20, 701, DateTimeKind.Local).AddTicks(1433), 2, 3 }
                 });
 
             migrationBuilder.CreateIndex(

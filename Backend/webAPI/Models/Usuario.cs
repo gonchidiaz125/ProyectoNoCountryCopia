@@ -20,6 +20,9 @@ namespace webAPI.Models
         [EmailAddress]
         public string Email { get; set; } = string.Empty;
 
+        [StringLength(100)]
+        public string Direccion { get; set; } = string.Empty;
+
         [StringLength(255)]
         public string Descripcion { get; set; } = string.Empty;
 

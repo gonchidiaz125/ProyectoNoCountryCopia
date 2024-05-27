@@ -51,6 +51,9 @@ namespace webAPI.Database.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Años")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("Borrado")
                         .HasColumnType("INTEGER");
 
@@ -58,9 +61,6 @@ namespace webAPI.Database.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("Edad")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Especie")
                         .IsRequired()
@@ -75,6 +75,9 @@ namespace webAPI.Database.Migrations
                     b.Property<int>("IdUsuario")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Meses")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -83,6 +86,11 @@ namespace webAPI.Database.Migrations
                     b.Property<string>("Raza")
                         .IsRequired()
                         .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UrlImagen")
+                        .IsRequired()
+                        .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -95,26 +103,30 @@ namespace webAPI.Database.Migrations
                         new
                         {
                             Id = 1,
+                            Años = 2,
                             Borrado = false,
-                            Descripcion = "Probandooo",
-                            Edad = 2,
+                            Descripcion = "Contactarse al +54123123 para mas info",
                             Especie = "Perro",
                             Estado = "Disponible",
                             IdUsuario = 1,
+                            Meses = 4,
                             Nombre = "Firulais",
-                            Raza = "Labrador"
+                            Raza = "Labrador",
+                            UrlImagen = "https://media.istockphoto.com/id/450726311/es/foto/labrador-12-meses-de-edad-sentado.jpg?s=612x612&w=0&k=20&c=-Spzg3jUij6pHhJQ4bjJYv2epvqAErFTxGagqNMtpig="
                         },
                         new
                         {
                             Id = 2,
+                            Años = 10,
                             Borrado = false,
-                            Descripcion = "Probandooo",
-                            Edad = 5,
+                            Descripcion = "Contactarse al +54123123 para mas info",
                             Especie = "Gato",
                             Estado = "Disponible",
                             IdUsuario = 2,
+                            Meses = 8,
                             Nombre = "Michi",
-                            Raza = "Siamez"
+                            Raza = "Siamez",
+                            UrlImagen = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThhm7y6kjw6Na52r2BUFB8Slpq_Gp9betWSw&s"
                         });
                 });
 
@@ -137,12 +149,117 @@ namespace webAPI.Database.Migrations
                         new
                         {
                             Id = 1,
-                            Nombre = "Santa Fe"
+                            Nombre = "Buenos Aires"
                         },
                         new
                         {
                             Id = 2,
+                            Nombre = "Ciudad Autónoma de Buenos Aires"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Nombre = "Catamarca"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Nombre = "Chaco"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Nombre = "Chubut"
+                        },
+                        new
+                        {
+                            Id = 6,
                             Nombre = "Córdoba"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Nombre = "Corrientes"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Nombre = "Entre Ríos"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Nombre = "Formosa"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Nombre = "Jujuy"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Nombre = "La Pampa"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Nombre = "La Rioja"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Nombre = "Mendoza"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Nombre = "Misiones"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Nombre = "Neuquén"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Nombre = "Río Negro"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Nombre = "Salta"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Nombre = "San Juan"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Nombre = "San Luis"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Nombre = "Santa Cruz"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Nombre = "Santa Fe"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Nombre = "Santiago del Estero"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Nombre = "Tierra del Fuego"
                         });
                 });
 
@@ -211,18 +328,18 @@ namespace webAPI.Database.Migrations
                         new
                         {
                             Id = 1,
-                            Estado = "Solicitado",
-                            Fecha = new DateTime(2024, 5, 22, 16, 21, 17, 574, DateTimeKind.Local).AddTicks(2695),
+                            Estado = "",
+                            Fecha = new DateTime(2024, 5, 26, 16, 47, 20, 701, DateTimeKind.Local).AddTicks(1420),
                             IdMascota = 1,
-                            IdUsuario = 1
+                            IdUsuario = 3
                         },
                         new
                         {
                             Id = 2,
-                            Estado = "Solicitado",
-                            Fecha = new DateTime(2024, 5, 22, 16, 21, 17, 574, DateTimeKind.Local).AddTicks(2708),
+                            Estado = "",
+                            Fecha = new DateTime(2024, 5, 26, 16, 47, 20, 701, DateTimeKind.Local).AddTicks(1433),
                             IdMascota = 2,
-                            IdUsuario = 2
+                            IdUsuario = 3
                         });
                 });
 
@@ -243,6 +360,11 @@ namespace webAPI.Database.Migrations
                     b.Property<string>("Descripcion")
                         .IsRequired()
                         .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Direccion")
+                        .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -280,9 +402,10 @@ namespace webAPI.Database.Migrations
                             Apellido = "Sartor",
                             Borrado = false,
                             Descripcion = "Probando",
+                            Direccion = "Av. Siempreviva 123",
                             Email = "lauty123@gmail.com",
                             IdLocalidad = 1,
-                            IdProvincia = 1,
+                            IdProvincia = 21,
                             IdRol = 1,
                             Nombre = "Lautaro"
                         },
@@ -292,11 +415,25 @@ namespace webAPI.Database.Migrations
                             Apellido = "Diaz",
                             Borrado = false,
                             Descripcion = "Probando",
+                            Direccion = "Bv. Fernetazo 345",
                             Email = "gonza123@gmail.com",
                             IdLocalidad = 2,
-                            IdProvincia = 2,
+                            IdProvincia = 6,
                             IdRol = 2,
                             Nombre = "Gonzalo"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Apellido = "JJ",
+                            Borrado = false,
+                            Descripcion = "Probando",
+                            Direccion = "Jeje",
+                            Email = "cliente123@gmail.com",
+                            IdLocalidad = 1,
+                            IdProvincia = 14,
+                            IdRol = 3,
+                            Nombre = "Cliente"
                         });
                 });
 
