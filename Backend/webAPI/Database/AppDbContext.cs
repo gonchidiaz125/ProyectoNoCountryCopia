@@ -23,61 +23,10 @@ namespace webAPI.Database
         //Valores iniciales para algunas tablas
         protected override void OnModelCreating(ModelBuilder mb)
         {
-            mb.Entity<Usuario>().HasData(
-                new Usuario
-                {
-                    Id = 1,
-                    Nombre = "Lautaro",
-                    Apellido = "Sartor",
-                    Email = "lauty123@gmail.com",
-                    Direccion = "Av. Siempreviva 123",
-                    Descripcion = "Probando",
-                    IdRol = 1,
-                    IdProvincia = 21,
-                    IdLocalidad = 1
-                },
-                new Usuario
-                {
-                    Id = 2,
-                    Nombre = "Gonzalo",
-                    Apellido = "Diaz",
-                    Email = "gonza123@gmail.com",
-                    Direccion = "Bv. Fernetazo 345",
-                    Descripcion = "Probando",
-                    IdRol = 2,
-                    IdProvincia = 6,
-                    IdLocalidad = 2
-                },
-                new Usuario
-                {
-                    Id = 3,
-                    Nombre = "Cliente",
-                    Apellido = "JJ",
-                    Email = "cliente123@gmail.com",
-                    Direccion = "Jeje",
-                    Descripcion = "Probando",
-                    IdRol = 3,
-                    IdProvincia = 14,
-                    IdLocalidad = 1
-                }
-            );
-
             mb.Entity<Rol>().HasData(
-                new Rol
-                {
-                    Id = 1,
-                    Nombre = "Admin"
-                },
-                new Rol
-                {
-                    Id = 2,
-                    Nombre = "Refugio"
-                },
-                new Rol
-                {
-                    Id = 3,
-                    Nombre = "Cliente"
-                }
+                new Rol { Id = 1, Nombre = "Admin" },
+                new Rol { Id = 2, Nombre = "Refugio" },
+                new Rol { Id = 3, Nombre = "Cliente" }
             );
 
             mb.Entity<Provincia>().HasData(
@@ -107,61 +56,9 @@ namespace webAPI.Database
             );
 
             mb.Entity<Localidad>().HasData(
-                new Localidad
-                {
-                    Id = 1,
-                    Nombre = "Avellaneda"
-                },
-                new Localidad
-                {
-                    Id = 2,
-                    Nombre = "Río Cuarto"
-                }
+                new Localidad { Id = 1, Nombre = "Avellaneda" },
+                new Localidad { Id = 2, Nombre = "Río Cuarto" }
             );
-
-            mb.Entity<Mascota>().HasData(
-                new Mascota
-                {
-                    Id = 1,
-                    Nombre = "Firulais",
-                    Meses = 4,
-                    Años = 2,
-                    Especie = "Perro",
-                    Raza = "Labrador",
-                    IdUsuario = 1,
-                    UrlImagen = "https://media.istockphoto.com/id/450726311/es/foto/labrador-12-meses-de-edad-sentado.jpg?s=612x612&w=0&k=20&c=-Spzg3jUij6pHhJQ4bjJYv2epvqAErFTxGagqNMtpig=",
-                    Descripcion = "Contactarse al +54123123 para mas info",
-                },
-                new Mascota
-                {
-                    Id = 2,
-                    Nombre = "Michi",
-                    Meses = 8,
-                    Años = 10,
-                    Especie = "Gato",
-                    Raza = "Siamez",
-                    IdUsuario = 2,
-                    UrlImagen = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThhm7y6kjw6Na52r2BUFB8Slpq_Gp9betWSw&s",
-                    Descripcion = "Contactarse al +54123123 para mas info",
-                }
-            );
-
-            /*
-            mb.Entity<Solicitud>().HasData(
-                new Solicitud
-                {
-                    Id = 1,
-                    IdUsuario = 3,
-                    IdMascota = 1
-                },
-                new Solicitud
-                {
-                    Id = 2,
-                    IdUsuario = 3,
-                    IdMascota = 2
-                }
-            );
-            */
         }
     }
 }

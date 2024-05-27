@@ -11,7 +11,7 @@ using webAPI.Database;
 namespace webAPI.Database.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240526194721_MigracionInicial")]
+    [Migration("20240527222115_MigracionInicial")]
     partial class MigracionInicial
     {
         /// <inheritdoc />
@@ -101,36 +101,6 @@ namespace webAPI.Database.Migrations
                     b.HasIndex("IdUsuario");
 
                     b.ToTable("Mascota");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Años = 2,
-                            Borrado = false,
-                            Descripcion = "Contactarse al +54123123 para mas info",
-                            Especie = "Perro",
-                            Estado = "Disponible",
-                            IdUsuario = 1,
-                            Meses = 4,
-                            Nombre = "Firulais",
-                            Raza = "Labrador",
-                            UrlImagen = "https://media.istockphoto.com/id/450726311/es/foto/labrador-12-meses-de-edad-sentado.jpg?s=612x612&w=0&k=20&c=-Spzg3jUij6pHhJQ4bjJYv2epvqAErFTxGagqNMtpig="
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Años = 10,
-                            Borrado = false,
-                            Descripcion = "Contactarse al +54123123 para mas info",
-                            Especie = "Gato",
-                            Estado = "Disponible",
-                            IdUsuario = 2,
-                            Meses = 8,
-                            Nombre = "Michi",
-                            Raza = "Siamez",
-                            UrlImagen = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThhm7y6kjw6Na52r2BUFB8Slpq_Gp9betWSw&s"
-                        });
                 });
 
             modelBuilder.Entity("webAPI.Models.Provincia", b =>
@@ -326,24 +296,6 @@ namespace webAPI.Database.Migrations
                     b.HasIndex("IdUsuario");
 
                     b.ToTable("Solicitud");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Estado = "",
-                            Fecha = new DateTime(2024, 5, 26, 16, 47, 20, 701, DateTimeKind.Local).AddTicks(1420),
-                            IdMascota = 1,
-                            IdUsuario = 3
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Estado = "",
-                            Fecha = new DateTime(2024, 5, 26, 16, 47, 20, 701, DateTimeKind.Local).AddTicks(1433),
-                            IdMascota = 2,
-                            IdUsuario = 3
-                        });
                 });
 
             modelBuilder.Entity("webAPI.Models.Usuario", b =>
@@ -388,6 +340,14 @@ namespace webAPI.Database.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
+                    b.Property<byte[]>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("BLOB");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .IsRequired()
+                        .HasColumnType("BLOB");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IdLocalidad");
@@ -397,47 +357,6 @@ namespace webAPI.Database.Migrations
                     b.HasIndex("IdRol");
 
                     b.ToTable("Usuario");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Apellido = "Sartor",
-                            Borrado = false,
-                            Descripcion = "Probando",
-                            Direccion = "Av. Siempreviva 123",
-                            Email = "lauty123@gmail.com",
-                            IdLocalidad = 1,
-                            IdProvincia = 21,
-                            IdRol = 1,
-                            Nombre = "Lautaro"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Apellido = "Diaz",
-                            Borrado = false,
-                            Descripcion = "Probando",
-                            Direccion = "Bv. Fernetazo 345",
-                            Email = "gonza123@gmail.com",
-                            IdLocalidad = 2,
-                            IdProvincia = 6,
-                            IdRol = 2,
-                            Nombre = "Gonzalo"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Apellido = "JJ",
-                            Borrado = false,
-                            Descripcion = "Probando",
-                            Direccion = "Jeje",
-                            Email = "cliente123@gmail.com",
-                            IdLocalidad = 1,
-                            IdProvincia = 14,
-                            IdRol = 3,
-                            Nombre = "Cliente"
-                        });
                 });
 
             modelBuilder.Entity("webAPI.Models.Mascota", b =>
